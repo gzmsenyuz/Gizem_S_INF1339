@@ -1,0 +1,156 @@
+<html>
+    <head>
+    <style>
+        .standardTable {border: solid;
+                        border-collapse: collapse;}
+        .blackbox{border: solid;
+                  height: 100px;
+                  width: 100px;
+                  text-align: center;
+                  background-color: black;
+                  border-color: white;
+                  color: yellow;
+                  vertical-align: top;}
+        .sevenSegmentTable{color: white; border-color:white;
+                            border:solid ; border-collapse: collapse}
+        .notsevenSegmentTable {border: none;}
+    </style>
+    </head>
+   
+</html>
+    <script>
+        function display(number) {
+            
+            document.getElementById("decimal_input").innerHTML=number
+            var bcd = dec2bin(number)
+            document.getElementById("binary_output").innerHTML=bcd
+            document.getElementById("binary2ssd_input").innerHTML=bin
+            var ssd = bin2ssd(bin)
+            document. getElementById("binary2ssd_output").innerHTML=ssd
+            document. getElementById("illuminate_input").innerHTML=ssd
+            illuminate (ssd)
+            document.getElementById("illuminate_output").innerHTML= 'done'
+            
+        }
+        function bin2ssd(binary) {
+            // convert the four bit input string into w,x,y,z variables
+            var w = false 
+            var x = false
+            var y = false
+            var z = false
+            if (binary[0] == '1') (w= true)
+            if (binary[1] == '1') (x= true)
+            if (binary[2] == '1') (y= true)
+            if (binary[3] == '1') (z= true)
+            // 'compute' the value of logical expression for each segment
+            var a = !w&x&z ||w&!x&!y||!x&!y&!z||!w&y
+            
+            var b = false
+            var c = false
+            var d = false
+            var e = false
+            var f = false
+            var g = false
+            var output =''
+            if (a) {output = output + '1'} else {output = output + '0'}
+            if (b) {output = output + '1'} else {output = output + '0'}
+            if (c) {output = output + '1'} else {output = output + '0'}
+            if (d) {output = output + '1'} else {output = output + '0'}
+            if (e) {output = output + '1'} else {output = output + '0'}
+            if (f) {output = output + '1'} else {output = output + '0'}
+            if (g) {output = output + '1'} else {output = output + '0'}
+           return (output)
+        
+        }
+        function dec2bin(decimal) {
+            //substitute a non algorithmic solution
+            //for the short term we will replace it later
+            
+            var binary_numbers= ['0000','0001','0010','0011',
+                                 '0100','0101','0110','0111',
+                                 '1000','1001']
+            return (binary_numbers[decimal])
+        } 
+        function dec2bin2 (decimal) {
+            var quotient = decimal 
+            var output = ''
+            while (quotient > 0) {
+                remainder = quotient % 2
+                if (remainder == 1)
+                    {output = '1' + output}
+                else 
+                    {output = '0' + output}
+                quotient = Math.floor(quotient/2)
+            }
+        }
+    </script>
+    </head>
+    <body>
+        <h2>Version 7 Adding BIN2SSD Fuctionality</h2>
+        <table class="standardTable">
+            <tr>
+                <td class="blackbox"><h3> Keypad</h3>
+                <button type="button" onclick="display(1)">1</button>
+                <button type="button" onclick="display(2)">2</button>
+                <button type="button" onclick="display(3)">3</button>
+                <button type="button" onclick="display(4)">4</button>
+                <button type="button" onclick="display(5)">5</button>
+                <button type="button" onclick="display(6)">6</button>
+                <button type="button" onclick="display(7)">7</button>
+                <button type="button" onclick="display(8)">8</button>
+                <button type="button" onclick="display(9)">9</button>
+                <button type="button" onclick="display(0)">0</button>
+                </td>
+                <td class="blackbox">
+                    <h3>Decimal to Binary</h3>
+                    <p id="decimal_input">???</p>
+                    <p id="binary_output">???</p></td>
+                
+                <td class="blackbox">
+                    <h3>Binary to SSD Signals</h3>
+                    <p id="binary2ssd_input"></p>
+                    <p id="binary2ssd_output"></p>
+                </td>
+                
+                <td class="blackbox">
+                    <h3>Illuminate Segments</h3>
+                    <p id="segments"></p>
+                    <table>
+                        <tr>
+                            <td class="notsevenSegmentTable">1</td>
+                            <td id="segmentA"
+                            class="sevenSegmentTable">A</td>
+                            <td class="notsevenSegmentTable">3</td>
+                        </tr>
+                         <tr>
+                            <td id="segmentF"
+                            class="notsevenSegmentTable">F</td>
+                            <td class="sevenSegmentTable">2</td>
+                            <td id="segmentB"
+                            class="notsevenSegmentTable">B</td>
+                        </tr>
+                        <tr>
+                            <td class="notsevenSegmentTable">1</td>
+                            <td id="segmentG"
+                            class="sevenSegmentTable">G</td>
+                            <td class="notsevenSegmentTable">3</td>
+                        </tr>
+                        <tr>
+                            <td id="segmentE"
+                            class="notsevenSegmentTable">E</td>
+                            <td class="sevenSegmentTable">2</td>
+                            <td id="segmentC"
+                            class="notsevenSegmentTable">C</td>
+                        </tr>                        <tr>
+                            <td class="notsevenSegmentTable">1</td>
+                            <td id="segmentD"
+                            class="sevenSegmentTable">D</td>
+                            <td class="notsevenSegmentTable">3</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        
+    </body>
+</html>
